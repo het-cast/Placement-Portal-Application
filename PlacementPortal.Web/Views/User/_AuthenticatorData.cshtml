@@ -1,0 +1,36 @@
+@model PlacementPortal.DAL.ViewModels.MultipleFactorDTO;
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg rounded-4 border-0">
+                <div class="card-body p-4">
+                    <h3 class="card-title text-center mb-4 text-primary">Set up Two-Factor Authentication</h3>
+
+                    <p class="text-center">Scan this QR code with your <strong>Google Authenticator</strong> app:</p>
+                    <div class="text-center mb-4">
+                        <img src="data:image/png;base64,@Model.QRCode" alt="QR Code"
+                            class="img-fluid border p-2 rounded bg-light" />
+                    </div>
+
+                    <p class="text-center">Can't scan? Enter this code manually in your app:</p>
+                    <div class="alert alert-info text-center fs-5 fw-bold">
+                        @Model.SecretKey
+                    </div>
+
+                    <form>
+                        <input type="hidden" value="@Model.Email" id="mfaInputEmail" name="email">
+                        <div class="mb-3">
+                            <label for="otp" class="form-label">Enter the 6-digit code from your app</label>
+                            <input type="text" class="form-control form-control-lg" id="otp" name="otp"
+                                placeholder="123456" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" id="verifyOTPSubmit" class="btn btn-primary btn-lg">Verify & Activate 2FA</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

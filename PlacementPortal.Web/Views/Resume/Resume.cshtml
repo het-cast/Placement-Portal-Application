@@ -1,0 +1,51 @@
+@{
+  Layout = "_MainLayout";
+}
+
+<div class="container mt-5">
+  <h3 class="text-center mb-4" style="color: #764ba2">
+    Resume(s)
+  </h3>
+
+  <div class="filter-section shadow-sm d-flex justify-content-center mb-4">
+    <div class="col-md-4">
+      <input id="searchFilterResumeList" type="text" class="form-control" placeholder="Search..." />
+    </div>
+  </div>
+
+  <div class="container-fluid" id="paginatedResumeList">
+    @* Paginated Resumes will be rendered here *@
+
+  </div>
+</div>
+
+<div class="modal fade" id="resumeCommentAddModal" tabindex="-1" aria-labelledby="resumeCommentAddModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content shadow rounded-3 border-0">
+      <div class="modal-header bg-gradient text-black"
+        style="background-color: linear-gradient(90deg, #667eea, #764ba2); !important">
+        <h5 class="modal-title fw-bold" id="viewApplicationModalLabel">Resume Comment</h5>
+        <button type="button" class="btn-close text-black" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div id="resumeCommentContainer" class="container-fluid d-flex justify-content-center align-items-center">
+          
+        </div>
+      </div>
+      <div class="modal-footer justify-content-end">
+        <button type="submit" id="resumeCommentSubmit" class="btn btn-light"
+          style="color: #764ba2; border: 1px solid #764ba2;">Save</button>
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+          style="color: #764ba2; border: 1px solid #764ba2;">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<Partial name="_validationScriptsPartial" />
+@section Scripts {
+  <script src="~/js/resume.js"></script>
+}

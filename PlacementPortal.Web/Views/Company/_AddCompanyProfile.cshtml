@@ -1,0 +1,70 @@
+@model PlacementPortal.DAL.ViewModels.CompanyProfileViewModel;
+
+<div class="w-75 container" style="border: 1px solid black; margin-top: 30px;">
+    @* Here the form will be there *@
+    <div style="margin: 20px;">
+        <div class="w-100 d-flex justify-content-center mb-4">
+            <h4>Company Profile</h4>
+        </div>
+        <form id="CompanyProfileForm">
+            <div class="row mb-3">
+                <div class="col-12 col-md mb-2 mb-md-3">
+                    <div class="form-floating mb-1">
+                        <input asp-for="Name" type="text" class="form-control" id="enrollmentNumber"
+                            placeholder="Enrollment Number : ">
+                        <label for="enrollmentNumber">Company Name</label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row row-cols-2 mb-3">
+                    <div class="col-12 col-md mb-2 mb-md-0">
+                        <div class="form-floating mb-1">
+                            <input asp-for="CompanyWebsite" type="text" class="form-control" id="enrollmentNumber"
+                                placeholder="Enrollment Number : ">
+                            <label for="enrollmentNumber">Company Website</label>
+                            <span asp-validation-for="CompanyWebsite" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md mb-2 mb-md-0">
+                        <div class="form-floating mb-1">
+                            <input asp-for="Location" type="text" class="form-control" id="enrollmentNumber"
+                                placeholder="Enrollment Number : ">
+                            <label for="enrollmentNumber">Company Location</label>
+                            <span asp-validation-for="Location" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 col-md mb-2 mb-md-0">
+                        <div class="form-floating mb-1">
+                            <input asp-for="Description" type="text" class="form-control" id="floatingInput"
+                                placeholder="Address">
+                            <label for="floatingInput">Description</label>
+                            <span asp-validation-for="Description" class="ms-2 text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid mt-4">
+                    @if (Model == null || Model.CompanyId <= 0)
+                    {
+                        <button type="submit" class="btn text-white" id="SaveCompanyAndNavigateJob"
+                            style="background-color: #667eea;">Save Company Profile and
+                            Next</button>
+                    }
+                    else if (Model.CompanyId > 0)
+                    {
+                        <button type="submit" class="btn text-white" data-companyid="@Model.CompanyId"
+                            id="updateCompanyProfileSubmit" style="background-color: #667eea;">Update Profile</button>
+                    }
+                </div>
+        </form>
+    </div>
+</div>
+<div class="w-100 d-flex justify-content-end mt-5 me-5 pe-5 pt-5">
+    <button id="companyListingsNavigation" class="jobs-button" type="button">
+        Go Back
+    </button>
+</div>

@@ -1,0 +1,36 @@
+@{
+    Layout = "_MainLayout";
+}
+
+@model PlacementPortal.DAL.ViewModels.AddRegisterStudentViewModel;
+
+<div class="container-fluid d-flex justify-content-center mt-5">
+    <div class="student-registration-card p-4" style="width: 400px !important; border: 1px solid black;">
+        <h3 class="text-center mb-4">Student Login</h3>
+        <form id="addStudentForm">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input asp-for="Email" type="email" class="form-control" id="addStudentEmail" name="Email"
+                    placeholder="Enter your email" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control" id="addStudentPassword" name="Password"
+                    placeholder="Enter your password" />
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" id="addStudentSubmit" class="btn btn-custom"
+                    style="border: 1px solid black;">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<Partial name="_validationScriptsPartial" />
+@section Scripts {
+    <script src="~/js/authentication.js"></script>
+}

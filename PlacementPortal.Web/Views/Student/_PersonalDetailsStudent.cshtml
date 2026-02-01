@@ -1,0 +1,47 @@
+@model PlacementPortal.DAL.ViewModels.UserDetailsDTO;
+
+<form id="PersonalDetailsStudentForm">
+    <div class="row row-cols-3">
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <label class="form-label">First Name</label>
+            <input asp-for="FirstName" type="text" class="form-control" placeholder="Enter your first name" />
+            <span asp-validation-for="FirstName" class="ms-2 text-danger"></span>
+        </div>
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <label class="form-label">Middle Name</label>
+            <input asp-for="MiddleName" type="text" class="form-control" placeholder="Enter your middle name" />
+            <span asp-validation-for="MiddleName" class="ms-2 text-danger"></span>
+        </div>
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <label class="form-label">Last Name</label>
+            <input asp-for="LastName" type="text" class="form-control" placeholder="Enter your last name" />
+            <span asp-validation-for="LastName" class="ms-2 text-danger"></span>
+        </div>
+    </div>
+    <div class="row row-cols-2">
+
+        <div class="mb-3 col-12 col-md-7">
+            <label class="form-label">Email Address</label>
+            <input asp-for="Email" type="email" class="form-control pe-none" readonly placeholder="Enter your email" />
+            <span asp-validation-for="Email" class="ms-2 text-danger"></span>
+        </div>
+        <div class="mb-3 col-12 col-md-5">
+            <label class="form-label">Contact Number</label>
+            <input asp-for="Phone" type="text" class="form-control" placeholder="Enter your phone number" />
+            <span asp-validation-for="Phone" class="ms-2 text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <input asp-for="Address" type="text" class="form-control" id="floatingInput" placeholder="Address">
+                <label for="floatingInput">Address</label>
+                <span asp-validation-for="Address" class="ms-2 text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-grid mt-4">
+        <button type="submit" class="btn " style="background-color : #eae0f9; color: #6f42c1" id="personalDetailsSubmit">Save Personal Details</button>
+    </div>
+</form>

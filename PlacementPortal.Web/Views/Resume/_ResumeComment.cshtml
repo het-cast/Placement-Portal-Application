@@ -1,0 +1,11 @@
+@model PlacementPortal.DAL.ViewModels.ResumeCommentViewModel;
+
+<form id="resumeCommentForm" class="w-75">
+    <div class="form-floating mb-1">
+        <input type="hidden" asp-for="ResumeId">
+        <textarea asp-for="ResumeComment" class="form-control" id="resumeCommentTextArea"
+            placeholder="Leave a comment here" style="height: 100px"></textarea>
+        <label class="ms-2" for="resumeCommentTextArea">Comment</label>
+        <span asp-validation-for="ResumeComment" class="ms-2 text-danger"></span>
+    </div>
+</form>

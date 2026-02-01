@@ -1,0 +1,42 @@
+@model PlacementPortal.DAL.ViewModels.ResumeUploadDTO;
+
+<div class="container mt-4">
+    <form id="addResumeForm" method="post"
+        enctype="multipart/form-data">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-sm-12">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body p-4">
+                        <h5 class="card-title text-center mb-4 text-primary fw-bold">
+                            <i class="fa-solid fa-file-upload me-2"></i>Upload Your Resume
+                        </h5>
+
+                        <!-- Browse File Area -->
+                        <div class="mb-3 text-center">
+                            <label for="formfile"
+                                class="d-block border border-2 border-primary rounded-4 p-4 bg-light file-upload-area"
+                                style="cursor: pointer;">
+                                <i class="fa-solid fa-upload fa-2x text-primary mb-2"></i>
+                                <div class="fw-semibold text-primary">Browse Files(only pdf's allowed)</div>
+                                <small class="text-muted">Click to select your resume
+                                    file</small>
+                            </label>
+                            <input type="file" accept=".pdf" id="formfile" name="ResumeFile" class="d-none"
+                                onchange="displayFileName(this)" />
+                            <div class="mt-2">
+                                <small id="file-name-display" class="text-success"></small>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" id="addResumeUpload"
+                                class="btn btn-outline-primary px-4 py-2 rounded-pill">
+                                <i class="fa-solid fa-cloud-arrow-up me-2"></i>Upload Resume
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

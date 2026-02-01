@@ -1,0 +1,656 @@
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /* background: linear-gradient(135deg, #94a8ff 0%, #dab5ff 100%); */
+  /* background: linear-gradient(135deg, #cdd9ff 0%, #f0d9ff 100%); */
+  /* background: linear-gradient(135deg, #d8e0ff 0%, #ebd4ff 100%); */
+  background: linear-gradient(135deg, #e1eaff 0%, #f5deff 100%);
+
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  /* min-height: 100vh; */
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      circle at 20% 80%,
+      rgba(120, 119, 198, 0.3) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 40%,
+      rgba(120, 200, 255, 0.2) 0%,
+      transparent 50%
+    );
+  z-index: -1;
+  animation: backgroundShift 20s ease-in-out infinite alternate;
+} */
+
+@keyframes backgroundShift {
+  0% {
+    transform: translateX(-20px) translateY(-10px);
+  }
+
+  100% {
+    transform: translateX(20px) translateY(10px);
+  }
+}
+
+#loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9999;
+}
+
+.header-section {
+  text-align: center;
+  padding: 4rem 0 3rem;
+  position: relative;
+}
+
+.header-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(45deg, #ffffff, #e0e7ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% {
+    filter: brightness(1);
+  }
+
+  100% {
+    filter: brightness(1.1);
+  }
+}
+
+.header-subtitle {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.company-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 2rem;
+  height: 100%;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.company-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent);
+  transition: left 0.5s;
+}
+
+.company-card:hover::before {
+  left: 100%;
+}
+
+.company-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.company-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.company-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.company-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.company-type {
+  font-size: 0.8rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.type-it {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+}
+
+.type-finance {
+  background: linear-gradient(135deg, #059669, #0d9488);
+  color: white;
+}
+
+.company-location {
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.location-icon {
+  color: #ef4444;
+  font-size: 1.1rem;
+}
+
+.company-description {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.visit-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.visit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  color: white;
+}
+
+.jobs-button {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jobs-button:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Modal Enhancements */
+.modal-content {
+  border: none;
+  border-radius: 24px;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 2rem 2rem 1rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-radius: 24px 24px 0 0;
+}
+
+.modal-delete-icon {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.gradient-placement {
+  background-color: linear-gradient(135deg, #667eea, #764ba2) !important;
+  color: white !important;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-close {
+  filter: brightness(0) invert(1);
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.job-listing {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.job-listing:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.job-title {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #1a1a2e;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.job-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: #64748b;
+}
+
+.job-detail i {
+  width: 20px;
+  text-align: center;
+  color: #667eea;
+}
+
+.btn-apply {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.btn-applied {
+  background: linear-gradient(135deg, #8295e9, #778ef7);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.btn-apply:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, #059669, #047857);
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-title {
+    font-size: 2.5rem;
+  }
+
+  .header-section {
+    padding: 2rem 0;
+  }
+
+  .company-card {
+    padding: 1.5rem;
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  .visit-button,
+  .jobs-button {
+    justify-content: center;
+  }
+
+  .modal-header,
+  .modal-body {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .header-title {
+    font-size: 2rem;
+  }
+
+  .company-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .company-name {
+    font-size: 1.3rem;
+  }
+}
+
+/* Loading Animation */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Scroll animations */
+.fade-in {
+  /* opacity: 0; */
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+  /* opacity: 1; */
+  transform: translateY(0);
+}
+
+.border-1px {
+  border: 1px solid black !important;
+}
+
+.tab-button-student-details {
+  background-color: #eae0f9;
+  color: #6f42c1;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.tab-button-student-details.active {
+  background-color: #6f42c1 !important;
+  color: white !important;
+}
+
+.tab-button-student-details:hover:not(.active) {
+  background-color: #d4bdf0;
+  color: #6f42c1;
+}
+
+
+.form-tab-student {
+  border: 1px solid #6f42c1 !important;
+}
+
+.form-tab-student-active {
+  background-color: #6f42c1 !important;
+}
+
+
+.navbar-custom {
+  background: #343a40;
+  color: white;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notification-wrapper {
+  position: relative;
+}
+
+.notification-icon-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: relative;
+  padding: 4px;
+  transition: transform 0.2s ease;
+}
+
+.notification-icon-btn:hover {
+  transform: scale(1.1);
+}
+
+.notifications-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  font-size: 0.7rem;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* === DROPDOWN STYLES === */
+.notifications-dropdown {
+  position: absolute;
+  top: 125%;
+  right: 0;
+  width: 375px;
+  background-color: #ebd7ff;
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+  max-height: 475px;
+  overflow-y: auto;
+  display: none;
+  z-index: 999;
+}
+
+.dropdown-show {
+  display: block;
+}
+
+/* === INDIVIDUAL ITEM === */
+.notification-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #d4b5ff;
+}
+
+/* .notification-item:last-child {
+  border-bottom: none;
+} */
+
+.notification-item .message {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 6px;
+  word-wrap: break-word;
+}
+
+.notification-item .read-btn {
+  padding: 5px 12px;
+  font-size: 0.85rem;
+  color: #764ba2;
+  background-color: transparent;
+  border: 1px solid #764ba2;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.notification-item .read-btn:hover {
+  background-color: #f1e6ff;
+}
+
+/* === READ ALL BUTTON === */
+.read-all {
+  padding: 12px;
+  text-align: center;
+  /* background-color: #f3eaff; */
+  /* border-top: 1px solid #d4b5ff; */
+}
+
+.read-all button {
+  padding: 6px 20px;
+  font-size: 0.9rem;
+  color: #764ba2;
+  border: 1px solid #764ba2;
+  /* background-color: transparent; */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.read-all button:hover {
+  background-color: #ecd8ff;
+}
+
+@media (max-width: 768px) {
+  .navbar-custom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .notifications-dropdown {
+    right: auto;
+    left: 0;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+
+/* Below for this job profile rows */
+.job-listing-field{
+  min-width: 135px !important;
+}
+
+/* .job-profile-row
+{
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  
+} */
+
+.job-profile-row {
+  box-shadow: 1px 5px 8px rgba(171, 81, 255, 0.3) !important;
+}
+
+/* Auto suggestion thing */
+.suggestion-list {
+  background: #fff;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0;
+}
+

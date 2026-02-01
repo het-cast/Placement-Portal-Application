@@ -1,0 +1,147 @@
+@model PlacementPortal.DAL.ViewModels.StudentAcademicDetailsDTO;
+
+<form id="StudentAcadmicDetailsForm">
+
+    <div class="row row-cols-2">
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <input asp-for="EnrollementNumber" type="number" class="form-control" id="enrollmentNumber"
+                    placeholder="Enrollment Number : ">
+                <label for="enrollmentNumber">Enrollment Number : </label>
+                <span asp-validation-for="EnrollementNumber" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <select asp-for="DepartmentId" class="form-select" id="selectDepartmentStudent">
+                    <option value="" selected>Select Department</option>
+                </select>
+                <label for="addNewModifierUnit">Department</label>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-3">
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <input asp-for="SscPercentage" type="number" class="form-control" id="sscPercentage"
+                    placeholder="SSC %">
+                <label for="sscPercentage">SSC % </label>
+                <span asp-validation-for="SscPercentage" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <div class="form-floating mb-1">
+                    <select asp-for="SscBoard" class="form-select" id="selectSSCBoardStudent">
+                        <option value="">Select Board</option>
+                        <option value="GSEB">G.S.E.B.</option>
+                        <option value="CBSE">C.B.S.E.</option>
+                        <option value="ICSE">I.C.S.E.</option>
+                        <option value="STATE">Other State Board</option>
+
+                    </select>
+                    <label for="selectSSCBoardStudent">SSC Board</label>
+                    <span asp-validation-for="SscBoard" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <input asp-for="SscPassingYear" type="number" class="form-control" id="sscPassingYear"
+                    placeholder="SSC Passing Year">
+                <label for="sscPassingYear">SSC Passing Year </label>
+                <span asp-validation-for="SscPassingYear" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row row-cols-3">
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <input asp-for="HscPercentage" type="number" class="form-control" id="hscPercentage"
+                    placeholder="HSC %">
+                <label for="hscPercentage">HSC % </label>
+                <span asp-validation-for="HscPercentage" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <div class="form-floating mb-1">
+                    <select asp-for="HscBoard" class="form-select" id="selectHSCBoardStudent">
+                        <option value="">Select Board</option>
+                        <option value="GSEB">G.S.E.B.</option>
+                        <option value="CBSE">C.B.S.E.</option>
+                        <option value="ICSE">I.C.S.E.</option>
+                        <option value="STATE">Other State Board</option>
+
+                    </select>
+                    <label for="selectHSCBoardStudent">HSC Board</label>
+                    <span asp-validation-for="HscBoard" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <input asp-for="HscPassingYear" type="number" class="form-control" id="hscPassingYear"
+                    placeholder="HSC Passing Year">
+                <label for="hscPassingYear">HSC Passing Year </label>
+                <span asp-validation-for="HscPassingYear" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-2">
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <input asp-for="CpiDiploma" type="number" class="form-control" id="diplomaCPI"
+                    placeholder="Diploma CPI">
+                <label for="diplomaCPI">Diploma % / CGPA (Enter 0 if not done diploma) </label>
+                <span asp-validation-for="CpiDiploma" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <input asp-for="EnrollmentYear" type="number" class="form-control" id="passoutYear"
+                    placeholder="Passout Year">
+                <label for="passoutYear">Passout Year </label>
+                <span asp-validation-for="EnrollmentYear" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row row-cols-3">
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <input asp-for="PendingBacklog" type="number" class="form-control" id="pendingBacklogs"
+                    placeholder="Pending Backlog">
+                <label for="pendingBacklogs">Backlogs</label>
+                <span asp-validation-for="PendingBacklog" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <input asp-for="Cpi" type="number" class="form-control" id="totalCPI" placeholder="CPI">
+                <label for="totalCPI">C.P.I</label>
+                <span asp-validation-for="Cpi" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-12 col-md mb-2 mb-md-0">
+            <div class="form-floating mb-1">
+                <input asp-for="Cgpa" type="number" class="form-control" id="totalCGPA" placeholder="CGPA">
+                <label for="totalCGPA">C.G.P.A</label>
+                <span asp-validation-for="Cgpa" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="d-grid mt-4">
+        <button type="submit" class="btn" style="background-color : #eae0f9; color: #6f42c1" id="StudentAcadmicDetailsFormSubmit">Register</button>
+    </div>
+</form>

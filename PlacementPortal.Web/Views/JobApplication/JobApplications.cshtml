@@ -1,0 +1,105 @@
+@using PlacementPortal.BLL.Constants
+@using PlacementPortal.BLL.Enums
+@{
+  Layout = "_MainLayout";
+}
+
+<div class="container mt-4">
+  <h3 class="text-center mb-4" style="color: #764ba2">
+    Student Job Applications
+  </h3>
+
+  @* Filters *@
+  <div class="row g-2 mb-3">
+    <div class="col-md-4">
+      <div class="form-floating mb-1">
+        <input type="text" id="searchFilterJobApp" class="form-control"
+          placeholder="Search by student, job, or company" />
+        <label for="searchFilterJobApp">Search...</label>
+      </div>
+
+    </div>
+    <div class="col-md-3">
+      <div class="form-floating mb-1">
+        <select id="jobApplicationStatus" name="CountryId" class="form-select">
+          <option value="" selected>@FilterConst.All</option>
+          <option value="@((int)JobApplicationEnum.NoResponse)">@JobApplicationEnum.NoResponse</option>
+          <option value="@((int)JobApplicationEnum.InProgress)">@JobApplicationEnum.InProgress</option>
+          <option value="@((int)JobApplicationEnum.Hired)">@JobApplicationEnum.Hired</option>
+          <option value="@((int)JobApplicationEnum.Rejected)">@JobApplicationEnum.Rejected</option>
+
+        </select>
+        <label for="jobApplicationStatus">Status</label>
+      </div>
+    </div>
+  </div>
+
+  <div id="allApplicationsContainer">
+    @* Applications Partial View will be rendered here *@
+
+  </div>
+</div>
+
+<!-- View Application Modal -->
+<div class="modal fade" id="viewJobApplicationModal" tabindex="-1" aria-labelledby="viewApplicationModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content shadow rounded-3 border-0">
+      <div class="modal-header bg-gradient text-black"
+        style="background-color: linear-gradient(90deg, #667eea, #764ba2); !important">
+        <h5 class="modal-title fw-bold" id="viewApplicationModalLabel">Application Details</h5>
+        <button type="button" class="btn-close text-black" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div id="applicationViewContainer">
+          @* Application Details Partial View will be loaded here *@
+        </div>
+      </div>
+      <div class="modal-footer justify-content-end">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@* Edit application Status Modal *@
+<div class="modal fade" id="editApplicationStatusModal" tabindex="-1" aria-labelledby="editApplicationStatusModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content shadow rounded-3 border-0">
+      <div class="modal-header bg-gradient text-black"
+        style="background-color: linear-gradient(90deg, #667eea, #764ba2); !important">
+        <h5 class="modal-title fw-bold" id="viewApplicationModalLabel">Application Status</h5>
+        <button type="button" class="btn-close text-black" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div id="applicationEditContainer" class="d-flex justify-content-center align-items-center">
+          <div class="form-floating mb-1 w-50">
+            <select id="jobApplicationStatusEdit" name="CountryId" class="form-select">
+              <option value="@((int)JobApplicationEnum.NoResponse)">@JobApplicationEnum.NoResponse</option>
+              <option value="@((int)JobApplicationEnum.InProgress)">@JobApplicationEnum.InProgress</option>
+              <option value="@((int)JobApplicationEnum.Hired)">@JobApplicationEnum.Hired</option>
+              <option value="@((int)JobApplicationEnum.Rejected)">@JobApplicationEnum.Rejected</option>
+            </select>
+            <label for="jobApplicationStatusEdit">Status</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-end">
+        <button type="submit" id="jobAppUpdateSubmit" class="btn btn-light"
+          style="color: #764ba2; border: 1px solid #764ba2;">Save</button>
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+          style="color: #764ba2; border: 1px solid #764ba2;">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+@section Scripts {
+  <script src="~/js/jobApplicationTPO.js"></script>
+}

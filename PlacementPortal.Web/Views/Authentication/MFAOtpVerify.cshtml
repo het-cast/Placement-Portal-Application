@@ -1,0 +1,38 @@
+@model PlacementPortal.DAL.ViewModels.MultipleFactorDTO;
+
+@{
+    Layout = "_AuthenticationLayout";
+}
+
+
+@{
+    ViewData["Title"] = "Two-Factor Authentication";
+}
+
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card p-4 shadow-sm" style="max-width: 400px; width: 100%;">
+        <h4 class="mb-3 text-center" style="color: #09244d;">Two-Factor Authentication</h4>
+        <p class="text-muted text-center">Enter the 6-digit code from your Authenticator app.</p>
+
+        <form method="post">
+            <div class="mb-3">
+                <input asp-for="OTP" id="otp" type="number" class="form-control text-center" placeholder="Enter OTP Code"
+                    maxlength="6" style="font-size: 1.25rem; letter-spacing: 5px;" required/>
+                <span asp-validation-for="OTP" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="Email" id="mfaInputEmail" value="@Model.Email" />
+
+            <button type="submit" id="verifyOTPSubmitAndLogin" class="btn w-100 text-white" style="background-color: #a577d3;">Verify Code</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <small class="text-muted">Code expires every 30 seconds</small>
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+@section Scripts {
+    <script src="~/js/authentication.js"></script>
+}

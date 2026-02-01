@@ -1,0 +1,44 @@
+@{
+    Layout = "_MainLayout";
+}
+
+<div id="enableMFAMain">
+    <h3 class="d-flex justify-content-center">Enable MFA(Multi-Factor Authentication) here</h3>
+
+    <div id="enableButtonMFA" class="d-flex justify-content-center mt-5">
+        <button type="button" id="enableMFABtn" data-disablemfa="false"  data-bs-toggle="modal" data-bs-target="#userAuthModal" class="btn "
+            data-bs-dismiss="modal" style="border: 1px solid #667eea;">
+            Enable MFA
+        </button>
+    </div>
+</div>
+
+
+<div class="modal fade" id="userAuthModal" tabindex="-1" aria-labelledby="userAuthModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="userAuthModalLabel">Authenticate Yourself
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex flex-column align-items-center gap-3">
+                <div id="userAuthModalMain">
+
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center gap-2">
+                <button type="button" class="btn " data-bs-dismiss="modal"
+                    style="border: 1px solid #667eea;">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    <script src="~/js/mfa.js"></script>
+}

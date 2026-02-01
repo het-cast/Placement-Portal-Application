@@ -1,0 +1,36 @@
+@using PlacementPortal.BLL.Constants
+@{
+    Layout = "_MainLayout";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4 fw-bold text-primary">Welcome to Placement Portal Dashboard</h2>
+    <div class="container-fluid mb-4" id="dashboardFilterContainer">
+        <div class="row">
+            <div class="col d-flex justify-content-end">
+                <div class="dateFilterContainer">
+                    <select class="p-2" id="dateFilterDashboard"
+                        style="border: 2px solid rgb(163, 169, 248); border-radius: 5px;">
+                        <option value="@FilterConst.CurrentYear" selected>Current Year</option>
+                        <option value="@FilterConst.CurrentMonth">Current Month</option>
+                        <option value="@FilterConst.PreviousMonth">Previous Month</option>
+                        <option value="@FilterConst.Last7Days">Last 7 Days</option>
+                        <option value="@FilterConst.All">Overall</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="container-fluid" id="dashboardDetails">
+        @* Dashboard details partial view will be rendere here *@
+    </div>
+
+</div>
+
+<Partial name="_validationScriptsPartial" />
+@section Scripts {
+    <script src="~/js/dashboard.js"></script>
+}

@@ -1,0 +1,88 @@
+@using PlacementPortal.BLL.Constants
+@using PlacementPortal.BLL.Enums
+@model PlacementPortal.DAL.ViewModels.AdminDashboardDTO;
+
+<div class="row g-4">
+  <div class="col-md-6 col-lg-3">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body">
+        <h5 class="card-title text-muted">@Model.TotalActiveStudents</h5>
+        <p class="text-muted mb-0">Total Students</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body">
+        <h5 class="card-title text-muted">@Model.TotalActiveTPOs</h5>
+        <p class="text-muted mb-0">Total TPOs</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body">
+        <h5 class="card-title text-muted">@Model.TotalJobListingsActive</h5>
+        <p class="text-muted mb-0">Active Job Listings Currently</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body">
+        <h5 class="card-title text-muted">@Model.RejectedOrNoReponseApplicationsCount</h5>
+        <p class="text-muted mb-0">Students Not Hired</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body">
+        <h5 class="card-title text-muted">@Model.TotalStudentsHired</h5>
+        <p class="text-muted mb-0">Students Hired</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="my-5" id="auditLogsContainer">
+  <h4>Audit Logs</h4>
+
+  @if (Model.AuditLogs == null || Model.AuditLogs.Count <= 0)
+  {
+    <div class="d-flex justify-content-center align-items-center fs-3 fw-bold"
+      style="background-color: #eae6f9; color: #5f4dbf;">
+      <p>@GeneralConst.NoAuditLogsFound</p>
+    </div>
+  }
+  else
+  {
+    <div class="container mt-4">
+      <h3 class="text-center mb-4">Audit Logs</h3>
+
+      @foreach (var log in Model.AuditLogs)
+      {
+        <div class="d-flex justify-content-between align-items-center p-3 mb-3 rounded shadow-sm"
+          style="background: linear-gradient(135deg, #e6ecff 0%, #f3e8ff 100%); border-left: 5px solid #667eea;">
+
+          <div class="d-flex align-items-center">
+            <div class="badge bg-primary rounded-circle me-3 text-uppercase"
+              style="width: 40px; height: 40px; font-size: 18px; display: flex; align-items: center; justify-content: center;">
+              @log.Role.Substring(0, 1)
+            </div>
+
+            <div class="fs-6">
+              <strong>@log.ActionByEmail</strong> @log.Action.ToLower() entity named <strong>@log.EntityName</strong>
+            </div>
+          </div>
+
+          <div class="text-end text-muted small" style="white-space: nowrap;">
+            @log.Timestamp.ToString()
+          </div>
+        </div>
+      }
+    </div>
+
+  }
+</div>

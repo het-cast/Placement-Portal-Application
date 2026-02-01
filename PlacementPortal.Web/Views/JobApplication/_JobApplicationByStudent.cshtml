@@ -1,0 +1,128 @@
+@using PlacementPortal.BLL.Constants
+@using PlacementPortal.DAL.ViewModels
+@using PlacementPortal.BLL.Enums
+@model PlacementPortal.DAL.ViewModels.PaginationDTO<StudentJobApplicationDTO>;
+
+@if (Model.Items?.Count <= 0 || Model.Items == null)
+{
+  <div class="d-flex justify-content-center align-items-center fs-3 fw-bold"
+    style="background-color: #eae6f9; color: #5f4dbf;">
+    <p>@GeneralConst.NoApplicationsFound</p>
+  </div>
+}
+else
+{
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover text-center align-middle">
+      <thead style="background-color: #eae6f9; color: #5f4dbf;">
+        <tr>
+          <th>
+            <div class="d-flex gap-2 justify-content-center flex-wrap">
+              <span>Company Name</span>
+              <div class="sorting-filters">
+                <i class="fa-solid fa-arrow-down sort-order-jobappstudent" data-sortcolumn="@FilterConst.CompanyNameSort"
+                  data-sortorder="@FilterConst.Descending"></i>
+                <i class="fa-solid fa-arrow-up sort-order-jobappstudent" data-sortcolumn="@FilterConst.CompanyNameSort"
+                  data-sortorder="@FilterConst.Ascending"></i>
+              </div>
+            </div>  
+          </th>
+          <th>Job Profile</th>
+          <th>
+            <div class="d-flex gap-2 justify-content-center flex-wrap">
+              <span>Applied At</span>
+              <div class="sorting-filters">
+                <i class="fa-solid fa-arrow-down sort-order-jobappstudent" data-sortcolumn="@FilterConst.CreatedAtSort"
+                  data-sortorder="@FilterConst.Descending"></i>
+                <i class="fa-solid fa-arrow-up sort-order-jobappstudent" data-sortcolumn="@FilterConst.CreatedAtSort"
+                  data-sortorder="@FilterConst.Ascending"></i>
+              </div>
+            </div>
+          </th>
+          <th>Status</th>
+          <th>
+            <div class="d-flex gap-2 justify-content-center flex-wrap">
+              <span>Min Package(LPA)</span>
+              <div class="sorting-filters">
+                <i class="fa-solid fa-arrow-down sort-order-jobappstudent" data-sortcolumn="@FilterConst.MinPackageSort"
+                  data-sortorder="@FilterConst.Descending"></i>
+                <i class="fa-solid fa-arrow-up sort-order-jobappstudent" data-sortcolumn="@FilterConst.MinPackageSort"
+                  data-sortorder="@FilterConst.Ascending"></i>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="d-flex gap-2 justify-content-center flex-wrap">
+              <span>Max Package(LPA)</span>
+              <div class="sorting-filters">
+                <i class="fa-solid fa-arrow-down sort-order-jobappstudent" data-sortcolumn="@FilterConst.MaxPackageSort"
+                  data-sortorder="@FilterConst.Descending"></i>
+                <i class="fa-solid fa-arrow-up sort-order-jobappstudent" data-sortcolumn="@FilterConst.MaxPackageSort"
+                  data-sortorder="@FilterConst.Ascending"></i>
+              </div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var app in Model.Items)
+        {
+          <tr>
+            <td>@app.CompanyName</td>
+            <td>@app.JobProfile</td>
+            <td>@app.AppliedDate.ToString()</td>
+            <td>
+              <span class="badge 
+                    @(app.ApplyStatus == (int)JobApplicationEnum.Hired ? "bg-success" :
+                      app.ApplyStatus == (int)JobApplicationEnum.InProgress ? "bg-warning text-dark" :
+                      app.ApplyStatus == (int)JobApplicationEnum.Rejected ? "bg-danger" :
+                      "bg-secondary")">
+                @((JobApplicationEnum)app.ApplyStatus)
+              </span>
+            </td>
+
+            <td>@app.MinPackageOffered</td>
+            <td>@app.MaxPackageOffered</td>
+          </tr>
+        }
+
+        <!-- Dynamic Data Rows Here -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination d-flex flex-column flex-md-row justify-content-center gap-2 pb-2">
+
+    <div class="d-flex Pages justify-content-center align-items-center">
+      <button id="previousJobApplication" @(Model.CurrentPage > 1 ? "" : "disabled") type="button"
+        style="background-color: rgba(102, 126, 234, 0.1);"
+        class="btn btn-outline-secondary arrows d-flex justify-content-center align-items-center px-3 py-2 mx-2">
+        <i class="fa-solid fa-angle-left" style="color: #5473ff;"></i>
+      </button>
+      <div class="d-flex justify-content-center align-items-center gap-3 mx-5">
+        <p class="m-0">Items Per Page:</p>
+        <div class="">
+          <select id="pageSizeJobApplication" class="px-2 border border-1 border-black p-1"
+            style="border-radius: 5px; background-color: rgba(102, 126, 234, 0.1);" asp-for="PageSize">
+            <option value="3" selected="@(Model.PageSize == 3)">3</option>
+            <option value="5" selected="@(Model.PageSize == 5)">5</option>
+            <option value="10" selected="@(Model.PageSize == 10)">10</option>
+            <option value="15" selected="@(Model.PageSize == 15)">15</option>
+            <option value="@Model.TotalRecords" selected="@(Model.PageSize == Model.TotalRecords)">All</option>
+          </select>
+        </div>
+      </div>
+      <button id="nextJobApplication" @(Model.CurrentPage < Model.TotalPages ? "" : "disabled") type="button"
+        style="background-color: rgba(102, 126, 234, 0.1);"
+        class="btn btn-outline-secondary arrows d-flex justify-content-center align-items-center px-3 py-2 me-1">
+        <i class="fa-solid fa-angle-right" style="color: #5473ff;"></i>
+      </button>
+    </div>
+
+  </div>
+  <div class="w-100 d-flex justify-content-center mt-3">
+    <p class="m-0 mx-1">Showing @Model.StartIndex-
+      @(Model.EndIndex) of @Model.TotalRecords
+    </p>
+  </div>
+}

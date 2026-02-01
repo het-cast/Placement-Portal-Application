@@ -1,0 +1,381 @@
+@using PlacementPortal.BLL.Enums
+@using PlacementPortal.BLL.Service;
+@{
+  string role = Context.Request.Cookies["Role"]!;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>@ViewData["Title"] - Placement Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/PlacementPortal.Web.styles.css" asp-append-version="true" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+  <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+  <script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+  <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      using PlacementPortal.DAL.ViewModels;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    #mainSidebar {
+      height: 100% !important;
+      overflow-y: auto;
+    }
+
+    #mainContent {
+      height: 100% !important;
+      overflow-y: auto;
+      padding-bottom: 50px
+    }
+
+    .offcanvas-body {
+      overflow-y: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-dark bg-dark ">
+    <div class="container-fluid">
+
+
+      <button class="btn btn-outline-light d-md-none" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#sidebarOffcanvas">
+        <i class="fas fa-bars"></i>
+      </button>
+
+
+      <button class="btn btn-outline-light d-none d-md-inline-block me-2" id="toggleDesktopSidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <span class="navbar-brand">Welcome, @role</span>
+      <div class="d-flex gap-3">
+        <div class="notification-wrapper">
+          <button class="notification-icon-btn" id="notificationIcon">
+            <span id="notificationsCount" class=""></span>
+            <i class="fa-solid fa-bell"></i>
+          </button>
+
+          <div class="notifications-dropdown" id="notificationsDropdown">
+            <div class="notifications-container d-flex flex-column justify-content-center align-items-center">
+
+            </div>
+            <!-- JS added notifications will be rendered here -->
+          </div>
+        </div>
+        <button data-bs-toggle="modal" data-bs-target="#logoutModal" class="btn btn-sm btn-danger">Logout</button>
+      </div>
+    </div>
+  </nav>
+  @* <nav class="navbar-custom">
+  <div class="d-flex align-items-center gap-3">
+  <!-- Mobile Toggle -->
+  <button class="btn btn-outline-light d-md-none" type="button" data-bs-toggle="offcanvas"
+  data-bs-target="#sidebarOffcanvas">
+  <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Desktop Sidebar Toggle -->
+  <button class="btn btn-outline-light d-none d-md-inline-block" id="toggleDesktopSidebar">
+  <i class="fas fa-bars"></i>
+  </button>
+
+  <span class="navbar-brand">Welcome, </span>
+  </div>
+
+  <div class="d-flex align-items-center gap-3">
+  <!-- Notification -->
+  <div class="notification-wrapper">
+  <button class="notification-icon-btn" id="notificationIcon">
+  <span id="notificationsCount" class="notifications-count"></span>
+  <i class="fa-solid fa-bell"></i>
+  </button>
+
+  <div class="notifications-dropdown" id="notificationsDropdown">
+  <div class="notifications-container d-flex flex-column justify-content-center align-items-center">
+
+  </div>
+  <!-- Add JS-rendered notifications here -->
+
+  <div class="read-all-btn">
+  <button id="readAllNotificationBtn">Read All</button>
+  </div>
+  </div>
+  </div>
+
+  <!-- Logout -->
+  <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</button>
+  </div>
+  </nav> *@
+  <div id="loader" class="spinner-border text-primary" style="display: none;" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <div class="main-wrapper">
+    <div id="mainSidebar" class="bg-dark text-light d-none d-md-block col-md-3 col-lg-2 pt-3">
+      <ul class="bg-dark border-0">
+        <li class="list-group-item p-2 border-0 d-flex align-items-center mb-2">
+          <a asp-action="Dashboard" asp-controller="Dashboard"
+            class="d-flex align-items-center w-100 bg-dark text-white text-decoration-none ">
+            <div class="col-1">
+              <i class="fa-regular fa-chart-bar"></i>
+            </div>
+            <div class="col-10 ms-3">Dashboard</div>
+          </a>
+        </li>
+
+        <li class="list-group-item p-2 border-0 d-flex align-items-center mb-2">
+          <a asp-action="Company" asp-controller="Company"
+            class="d-flex align-items-center w-100 bg-dark text-white text-decoration-none ">
+            <div class="col-1">
+              <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+            <div class="col-10 ms-3">Companies</div>
+          </a>
+        </li>
+        @if (role == RoleEnum.TPO.ToString())
+        {
+          <li class="list-group-item p-2 border-0 d-flex align-items-center mb-2">
+            <a asp-action="ViewApplications" asp-controller="JobApplication"
+              class="d-flex align-items-center w-100 bg-dark text-white text-decoration-none ">
+              <div class="col-1">
+                <i class="fa-regular fa-file-lines"></i>
+              </div>
+              <div class="col-10 ms-3">View Applications</div>
+            </a>
+          </li>
+          <li class="list-group-item p-2 border-0 d-flex align-items-center mb-2">
+            <a asp-action="Resume" asp-controller="Resume"
+              class="d-flex align-items-center w-100 bg-dark text-white text-decoration-none ">
+              <div class="col-1">
+                <i class="fa-regular fa-file-lines"></i>
+              </div>
+              <div class="col-10 ms-3">View Resumes</div>
+            </a>
+          </li>
+          <li class="list-group-item p-2 border-0 d-flex align-items-center mb-2">
+            <a asp-action="AddStudent" asp-controller="Authentication"
+              class="d-flex align-items-center w-100 bg-dark text-white text-decoration-none ">
+              <div class="col-1">
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <div class="col-10 ms-3">Add Student</div>
+            </a>
+          </li>
+        }
+        @if (role == RoleEnum.Student.ToString())
+        {
+          <li class="list-group-item p-2 border-0 d-flex align-items-center mb-2">
+            <a asp-action="Student" asp-controller="Student"
+              class="d-flex align-items-center w-100 bg-dark text-white text-decoration-none ">
+              <div class="col-1">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="col-10 ms-3">My Profile</div>
+            </a>
+          </li>
+          <li class="list-group-item p-2 border-0 d-flex align-items-center mb-2">
+            <a asp-action="ViewApplicationsByStudent" asp-controller="JobApplication"
+              class="d-flex align-items-center w-100 bg-dark text-white text-decoration-none ">
+              <div class="col-1">
+                <i class="fa-regular fa-file-lines"></i>
+              </div>
+              <div class="col-10 ms-3">My Applications</div>
+            </a>
+          </li>
+        }
+        @if (role == RoleEnum.Admin.ToString())
+        {
+          <li class="list-group-item p-2 border-0 d-flex align-items-center mb-2">
+            <a asp-action="AddUserAdmin" asp-controller="Authentication"
+              class="d-flex align-items-center w-100 bg-dark text-white text-decoration-none ">
+              <div class="col-1">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="col-10 ms-3">Add User</div>
+            </a>
+          </li>
+          <li class="list-group-item p-2 border-0 d-flex align-items-center mb-2">
+            <a asp-action="TPOs" asp-controller="Admin"
+              class="d-flex align-items-center w-100 bg-dark text-white text-decoration-none ">
+              <div class="col-1">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="col-10 ms-3">TPO <Section></Section></div>
+            </a>
+          </li>
+        }
+        <li class="list-group-item p-2 border-0 d-flex align-items-center mb-2">
+            <a asp-action="EnableMFA" asp-controller="User"
+              class="d-flex align-items-center w-100 bg-dark text-white text-decoration-none ">
+              <div class="col-1">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="col-10 ms-3">Enable MFA</div>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+    <main id="mainContent" class="col-12 col-md-9 col-lg-10 px-4">
+      <div class="pt-3">
+        @RenderBody()
+      </div>
+    </main>
+  </div>
+  <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="logoutModalLabel">Logout Confirmation
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body d-flex flex-column align-items-center gap-3">
+          <i class="fa-solid fa-triangle-exclamation modal-delete-icon p-3"></i>
+          <span>Are You Sure you want to Logout ?</span>
+        </div>
+        <div class="modal-footer d-flex justify-content-center gap-2">
+          <a asp-action="Logout" asp-controller="Authentication" type="button" class="btn gradient-placement"
+            style="background-color: #667eea;">Yes</a>
+          <button type="button" class="btn " data-bs-dismiss="modal" style="border: 1px solid #667eea;">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var toggleBtn = document.getElementById("toggleDesktopSidebar");
+    var sidebar = document.getElementById("mainSidebar");
+    var content = document.getElementById("mainContent");
+
+    function updateSidebarOnResize() {
+      var width = window.innerWidth;
+
+      // w < 768, it restores deafult screen
+      if (width < 768) {
+        sidebar.classList.add("d-none");
+        sidebar.classList.remove("d-md-block");
+        content.classList.remove("col-12");
+        content.classList.add("col-md-9", "col-lg-10");
+      }
+    }
+
+    // This thing collapses / expands sidebar
+    toggleBtn.addEventListener("click", function () {
+      if (sidebar.classList.contains("d-md-block")) {
+        sidebar.classList.remove("d-md-block");
+        sidebar.classList.add("d-none");
+        content.classList.remove("col-md-9", "col-lg-10");
+        content.classList.add("col-12");
+      } else {
+        sidebar.classList.add("d-md-block");
+        sidebar.classList.remove("d-none");
+        content.classList.remove("col-12");
+        content.classList.add("col-md-9", "col-lg-10");
+      }
+    });
+
+    // Ensure proper state when resizing to smaller screen
+    window.addEventListener("resize", updateSidebarOnResize);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+  <script>
+    const toastr = new Notyf({
+      duration: 2000,
+      position: {
+        x: 'right',
+        y: 'top',
+      },
+      types: [
+        {
+          type: 'info',
+          background: '#3b82f6',
+          icon: {
+            className: 'material-icons',
+            tagName: 'i',
+            text: 'info',
+          },
+        },
+        {
+          type: 'warning',
+          background: '#facc15',
+          icon: {
+            className: 'material-icons',
+            tagName: 'i',
+            text: 'warning',
+          },
+        }
+      ],
+    });
+
+  </script>
+  <script>
+    const icon = document.getElementById("notificationIcon");
+    const dropdown = document.getElementById("notificationsDropdown");
+
+    icon.addEventListener("click", function (e) {
+      dropdown.classList.toggle("dropdown-show");
+    });
+
+    // Optional: click outside to close
+    document.addEventListener("click", function (e) {
+      if (!icon.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove("dropdown-show");
+      }
+    });
+  </script>
+
+  <script>
+    $(document).ready(function () {
+    @if (TempData["SuccessMessage"] != null)
+    {
+      <text>toastr.success("@TempData["SuccessMessage"]");</text>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+      <text>toastr.error("@TempData["ErrorMessage"]");</text>
+    }
+    @if (TempData["InfoMessage"] != null)
+    {
+      <text>toastr.info("@TempData["InfoMessage"]");</text>
+    }
+    @if (TempData["WarningMessage"] != null)
+    {
+      <text>toastr.warning("@TempData["WarningMessage"]");</text>
+    }
+      });
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="~/js/site.js" asp-append-version="true"></script>
+  @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

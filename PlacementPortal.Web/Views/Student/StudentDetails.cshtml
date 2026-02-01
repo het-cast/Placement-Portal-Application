@@ -1,0 +1,181 @@
+@model PlacementPortal.DAL.ViewModels.StudentViewModel;
+
+<div class="container mt-4 mb-4">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold" style="color: #6f42c1;">Student Details</h3>
+        <hr class="mx-auto" style="width: 60px; border: 2px solid #6f42c1;">
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+            <div class="card shadow-lg rounded-4 border-0">
+                <div class="card-body p-4">
+
+                    <!-- Tabs Nav -->
+                    <div class="d-flex justify-content-between flex-wrap align-items-center mb-3">
+                        <ul class="nav nav-pills gap-2" id="registrationTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link tab-button-student-details active" id="personal-tab"
+                                    data-bs-toggle="tab" data-bs-target="#personal" type="button" role="tab">
+                                    Personal Details
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link tab-button-student-details" id="academic-tab"
+                                    data-bs-toggle="tab" data-bs-target="#academic" type="button" role="tab">
+                                    Academic Details
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div class="d-flex gap-2 mt-2 mt-md-0">
+                            <a target="_blank"
+                                href="@Url.Action("PreviewResume", "Resume", new { fileName = Uri.EscapeDataString(Model.ResumeData!.ResumePath!)})"
+                                class="btn btn-outline-secondary border-0 px-3 py-2"
+                                style="background-color: #eae0f9; color: #6f42c1;">
+                                View Resume
+                            </a>
+                            <button class="btn px-3 py-2" type="button" id="navigateToUpdateStudent"
+                                style="background-color: #6f42c1; color: white;">
+                                Update Profile
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content mt-3" id="registrationTabsContent">
+
+                        <!-- Personal Details Tab -->
+                        <div class="tab-pane fade show active" id="personal" role="tabpanel">
+                            <div class="card border-0 mb-3 shadow-sm rounded-3">
+                                <div class="card-header" style="background-color: #eae0f9; color: #6f42c1;">
+                                    <strong>Personal Information</strong>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>First Name</strong></td>
+                                                    <td>@Model.StudentPersonalDetails!.FirstName</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Middle Name</strong></td>
+                                                    <td>@Model.StudentPersonalDetails.MiddleName</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Last Name</strong></td>
+                                                    <td>@Model.StudentPersonalDetails.LastName</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Email</strong></td>
+                                                    <td>@Model.StudentPersonalDetails.Email</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Phone</strong></td>
+                                                    <td>@Model.StudentPersonalDetails.Phone</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Address</strong></td>
+                                                    <td>@Model.StudentPersonalDetails.Address</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Academic Details Tab -->
+                        <div class="tab-pane fade" id="academic" role="tabpanel">
+                            <div class="card border-0 shadow-sm rounded-3">
+                                <div class="card-header" style="background-color: #eae0f9; color: #6f42c1;">
+                                    <strong>Academic Information</strong>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Email</strong></td>
+                                                    <td>@Model.StudentPersonalDetails.Email</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Enrollment Number</strong></td>
+                                                    <td>@Model.StudentAcademicDetails!.EnrollementNumber</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Department</strong></td>
+                                                    <td>@Model.StudentAcademicDetails.BranchName</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Passout Year</strong></td>
+                                                    <td>@Model.StudentAcademicDetails.EnrollmentYear</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>SSC %</strong></td>
+                                                    <td>@Model.StudentAcademicDetails.SscPercentage</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>SSC Board</strong></td>
+                                                    <td>@Model.StudentAcademicDetails.SscBoard</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>SSC Passing Year</strong></td>
+                                                    <td>@Model.StudentAcademicDetails.SscPassingYear</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>HSC Passing %</strong></td>
+                                                    <td>@Model.StudentAcademicDetails.HscPercentage</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>HSC Board</strong></td>
+                                                    <td>@Model.StudentAcademicDetails.HscBoard</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>HSC Passing Year</strong></td>
+                                                    <td>@Model.StudentAcademicDetails.HscPassingYear</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Diploma % / CPI</strong></td>
+                                                    <td>@Model.StudentAcademicDetails.CpiDiploma</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>C.P.I</strong></td>
+                                                    <td>@Model.StudentAcademicDetails.Cpi</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>C.G.P.A</strong></td>
+                                                    <td>@Model.StudentAcademicDetails.Cgpa</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Pending Backlogs</strong></td>
+                                                    <td>@Model.StudentAcademicDetails.PendingBacklog</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.tab-button').removeClass('active');
+        $('.tab-button:first').addClass('active');
+
+        $('.tab-button').on('click', function () {
+            $('.tab-button').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+</script>

@@ -1,0 +1,123 @@
+@using PlacementPortal.BLL.Constants
+@using PlacementPortal.BLL.Enums
+@using PlacementPortal.DAL.ViewModels
+@model PlacementPortal.DAL.ViewModels.PaginationDTO<StudentJobApplicationDTO>;
+
+@if (Model.Items == null || Model.Items?.Count <= 0)
+{
+  <div class="d-flex justify-content-center align-items-center fs-3 fw-bold"
+    style="background-color: #eae6f9; color: #5f4dbf;">
+    <p>@GeneralConst.NoApplicationsFound</p>
+  </div>
+}
+else
+{
+  <div class="table-responsive shadow rounded">
+    <table class="table table-hover align-middle text-center">
+      <thead class="table-light">
+        <tr>
+          <th>
+            <div class="d-flex gap-2 justify-content-center flex-wrap">
+              <span>Student</span>
+              <div class="sorting-filters">
+                <i class="fa-solid fa-arrow-down sort-order-jobappstudent" data-sortcolumn="@FilterConst.StudentIdSort"
+                  data-sortorder="@FilterConst.Descending"></i>
+                <i class="fa-solid fa-arrow-up sort-order-jobappstudent" data-sortcolumn="@FilterConst.StudentIdSort"
+                  data-sortorder="@FilterConst.Ascending"></i>
+              </div>
+            </div>
+          </th>
+          <th><div class="d-flex gap-2 justify-content-center flex-wrap">
+              <span>Company</span>
+              <div class="sorting-filters">
+                <i class="fa-solid fa-arrow-down sort-order-jobappstudent" data-sortcolumn="@FilterConst.CompanyNameSort"
+                  data-sortorder="@FilterConst.Descending"></i>
+                <i class="fa-solid fa-arrow-up sort-order-jobappstudent" data-sortcolumn="@FilterConst.CompanyNameSort"
+                  data-sortorder="@FilterConst.Ascending"></i>
+              </div>
+            </div></th>
+          <th>Job Profile</th>
+          <th>Apply Status</th>
+          <th>
+            <div class="d-flex gap-2 justify-content-center flex-wrap">
+              <span>Applied On</span>
+              <div class="sorting-filters">
+                <i class="fa-solid fa-arrow-down sort-order-jobappstudent" data-sortcolumn="@FilterConst.CreatedAtSort"
+                  data-sortorder="@FilterConst.Descending"></i>
+                <i class="fa-solid fa-arrow-up sort-order-jobappstudent" data-sortcolumn="@FilterConst.CreatedAtSort"
+                  data-sortorder="@FilterConst.Ascending"></i>
+              </div>
+            </div>
+          </th>
+          <th>Package (Min - Max)</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (Model.Items != null)
+        {
+          @foreach (var application in Model.Items)
+          {
+            <tr>
+              <td>@application.StudentName</td>
+              <td>@application.CompanyName</td>
+              <td>@application.JobProfile</td>
+              <td>
+                <span class="badge 
+                    @(application.ApplyStatus == (int)JobApplicationEnum.Hired ? "bg-success" :
+                      application.ApplyStatus == (int)JobApplicationEnum.InProgress ? "bg-warning text-dark" :
+                      application.ApplyStatus == (int)JobApplicationEnum.Rejected ? "bg-danger" :
+                      "bg-secondary")">
+                  @((JobApplicationEnum)application.ApplyStatus)
+                </span></td>
+              <td>@application.AppliedDate.ToString()</td>
+              <td>@application.MinPackageOffered - @application.MaxPackageOffered LPA</td>
+              <td>
+                <button type="button" class="btn btn-sm application-status-edit" style="color: #764ba2; border: 1px solid #764ba2;"
+                  data-applicationid="@application.ApplicationId" data-bs-toggle="modal" data-bs-target="#editApplicationStatusModal">
+                    <i class="fa-solid fa-pencil"></i>
+                </button>
+                <button class="btn btn-sm application-view" style="color: #764ba2; border: 1px solid #764ba2;"
+                  data-applicationid="@application.ApplicationId" data-bs-toggle="modal"
+                  data-bs-target="#viewJobApplicationModal">View</button>
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="pagination d-flex flex-column flex-md-row justify-content-center gap-2 pb-2">
+    <div class="d-flex Pages justify-content-center align-items-center">
+      <button id="previousJobApp" @(Model.CurrentPage > 1 ? "" : "disabled") type="button"
+        style="background-color: rgba(102, 126, 234, 0.1);"
+        class="btn btn-outline-secondary arrows d-flex justify-content-center align-items-center px-3 py-2 mx-2">
+        <i class="fa-solid fa-angle-left" style="color: #5473ff;"></i>
+      </button>
+      <div class="d-flex justify-content-center align-items-center gap-3 mx-5">
+        <p class="m-0">Items Per Page:</p>
+        <div class="">
+          <select id="pageSizeJobApp" class="px-2 border border-1 border-black p-1"
+            style="border-radius: 5px; background-color: rgba(102, 126, 234, 0.1);" asp-for="PageSize">
+            <option value="3" selected="@(Model.PageSize == 3)">3</option>
+            <option value="5" selected="@(Model.PageSize == 5)">5</option>
+            <option value="10" selected="@(Model.PageSize == 10)">10</option>
+            <option value="15" selected="@(Model.PageSize == 15)">15</option>
+            <option value="@Model.TotalRecords" selected="@(Model.PageSize == Model.TotalRecords)">All</option>
+          </select>
+        </div>
+      </div>
+      <button id="nextJobApp" @(Model.CurrentPage < Model.TotalPages ? "" : "disabled") type="button"
+        style="background-color: rgba(102, 126, 234, 0.1);"
+        class="btn btn-outline-secondary arrows d-flex justify-content-center align-items-center px-3 py-2 me-1">
+        <i class="fa-solid fa-angle-right" style="color: #5473ff;"></i>
+      </button>
+    </div>
+
+  </div>
+  <div class="w-100 d-flex justify-content-center mt-3">
+    <p class="m-0 mx-1">Showing @Model.StartIndex-
+      @(Model.EndIndex) of @Model.TotalRecords
+    </p>
+  </div>
+}

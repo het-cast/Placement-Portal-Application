@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+        <div class="card shadow-sm border-0 rounded mt-4">
+            <div class="card-header text-white text-center fw-bold" style="background-color: #8362c0;">
+                Student Data
+            </div>
+            <div class="card-body">
+                <!-- Custom Tab-Like Buttons -->
+                <div class="mb-4 d-flex justify-content-between">
+                    <div class="">
+                        <button class="btn me-2 form-tab-student " id="btn-personal"
+                           data-tab="personal">Personal Details</button>
+                        <button class="btn  form-tab-student" id="btn-academic"
+                            data-tab="academic">Academic Details</button>
+                        <button class="btn  form-tab-student" id="btn-academic"
+                            data-tab="resumeupload">Resume</button>
+                    </div>
+
+                    <div>
+                        <button class="btn border-1 px-2 py-1" type="button" id="navigateToStudentDetails"
+                            style="background-color : #eae0f9; color: #6f42c1">Back to details</button>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tabContent">
+                    @* @await Html.PartialAsync("_PersonalDetailsStudent") *@
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.form-tab-student').removeClass('form-tab-student-active text-white');
+        $('.form-tab-student:first').addClass('form-tab-student-active text-white');
+
+        $(document).on("click", ".form-tab-student", function(){
+            $('.form-tab-student').removeClass('form-tab-student-active text-white');
+            $(this).addClass('form-tab-student-active text-white');
+        });
+    });
+</script>

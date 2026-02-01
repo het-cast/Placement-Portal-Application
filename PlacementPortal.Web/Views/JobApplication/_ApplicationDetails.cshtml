@@ -1,0 +1,56 @@
+@using PlacementPortal.BLL.Enums
+@model PlacementPortal.DAL.ViewModels.JobApplicationDataDTO;
+
+<div class="mb-4">
+  <h6 class="text-primary fw-bold">Student Information</h6>
+  <div class="row">
+    <div class="col-md-6"><strong>Full Name:</strong>@Model.StudentName</div>
+    <div class="col-md-6"><strong>Email:</strong> @Model.StudentEmail</div>
+    <div class="col-md-6"><strong>Enrollment No:</strong>210430116136</div>
+    <div class="col-md-6"><strong>Branch:</strong>@Model.StudentDepartment</div>
+    <div class="col-md-6"><strong>Course Year:</strong> Final Year (Sem 8)</div>
+  </div>
+</div>
+
+<div class="mb-4">
+  <h6 class="text-success fw-bold">Job Information</h6>
+  <div class="row">
+    <div class="col-md-6"><strong>Company Name:</strong>@Model.CompanyName</div>
+    <div class="col-md-6"><strong>Job Profile:</strong>@Model.JobProfile</div>
+    <div class="col-md-6"><strong>Job Domain:</strong>@Model.JobDomain</div>
+    <div class="col-md-6"><strong>Package:</strong> ₹@Model.MinPackageOffered LPA - ₹@Model.MaxPackageOffered LPA</div>
+  </div>
+</div>
+
+<div class="mb-4">
+  <h6 class="text-warning fw-bold">Application Details</h6>
+  <div class="row">
+    <div class="col-md-6"><strong>Applied On:</strong> @Model.AppliedDate.ToString()</div>
+    <div class="col-md-6"><strong>Last Updated:</strong> @Model.ModifiedDate.ToString()</div>
+    <div class="col-md-6">
+      <strong>Status:</strong>
+      <span class="" style="color: #8c56c2;">@Enum.GetName(typeof(JobApplicationEnum), Model.ApplyStatus)</span>
+    </div>
+  </div>
+</div>
+
+<div class="mb-4">
+  <h6 class="text-secondary fw-bold">Documents</h6>
+  <div class="row">
+    <div class="col-md-6"><strong>Resume:</strong>
+      <a style="color: #764ba2; border: 1px solid #764ba2;" href="@Url.Action("DownloadResume", "Resume", new { fileName = Model.ResumePath })"
+        class="btn btn-sm btn-outline-primary text-decoration-none">
+        Download Resume
+      </a>
+
+    </div>
+    <div class="col-md-6"><strong>Resume Preview : </strong>
+      <a style="color: #764ba2;" class="text-decoration-none" target="_blank"
+        href="@Url.Action("PreviewResume", "Resume", new { fileName = Uri.EscapeDataString(Model.ResumePath!) })">
+        See Preview
+      </a>
+      @* <embed src="@Url.Action("PreviewResume", "JobApplication", new { fileName = Model.ResumePath })"
+        type="application/pdf" width="100%" height="600px" /> *@
+    </div>
+  </div>
+</div>

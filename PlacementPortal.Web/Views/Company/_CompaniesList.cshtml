@@ -1,0 +1,119 @@
+@{
+    string? UserRole = Context.Request.Cookies["Role"] ?? RoleEnum.Student.ToString();
+}
+
+@using PlacementPortal.BLL.Constants
+@using PlacementPortal.BLL.Enums;
+@using PlacementPortal.DAL.ViewModels
+@model PlacementPortal.DAL.ViewModels.PaginationDTO<CompanyProfileDTO>
+
+@if (UserRole == RoleEnum.TPO.ToString())
+{
+    <div class="w-100 d-flex justify-content-end">
+        <a asp-action="CompanyProfile" asp-controller="Company" class="btn border-1 px-2 py-1 text-decoration-none" type="" id=""
+            style="background-color: rgb(131, 160, 255); color: white">Add Company</a>
+    </div>
+}
+@if (UserRole == RoleEnum.Student.ToString())
+{
+    <div class="w-100 d-flex justify-content-end">
+        <button id="viewEligibleCompanies" class="btn border-1 px-2 py-1" type="button"
+            style="background-color: rgb(131, 160, 255); color: white">View Eligible Companies</button>
+    </div>
+}
+
+@if (Model.Items?.Count <= 0 || Model.Items == null)
+{
+    <div class="d-flex justify-content-center align-items-center fs-3 fw-bold"
+        style="background-color: #eae6f9; color: #5f4dbf;">
+        <p>@GeneralConst.NoCompaniesFound</p>
+    </div>
+}
+else
+{
+    <div class="w-100 d-flex justify-content-center">
+        <div class="container-fluid pb-5" id="companyListsContainer">
+            <div id="companyContainer" class="row gap-4 justify-content-center">
+                @foreach (var company in Model.Items)
+                {
+                    <div class="company-card col-sm-12 col-lg-5 col-xl-4" style="height: inherit;">
+                        <div class="company-header">
+                            <div class="d-flex align-items-center justify-content-between gap-5 flex-wrap">
+                                <div class="company-name">
+                                    @company.Name
+                                </div>
+                                <div class="company-location d-flex align-items-center pt-2">
+                                    <i class="fas fa-map-marker-alt location-icon"></i>
+                                    @company.Location
+                                </div>
+                            </div>
+                        </div>
+                        <div class="company-description" style="height: 110px; overflow-y: scroll;">
+                            @company.Description
+                        </div>
+                        <div class="card-actions">
+                            <button class="jobs-button" data-companyid="@company.CompanyId" id="companyJobsListing"
+                                type="button" data-bs-toggle="modal" data-bs-target="#jobModal">
+                                <i class="fas fa-briefcase"></i>
+
+                            </button>
+                            <a href="@company.CompanyWebsite" target="_blank" class="visit-button">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            @if (UserRole == RoleEnum.TPO.ToString())
+                            {
+                                <a id="" asp-action="CompanyProfile" asp-controller="Company" asp-route-id="@company.CompanyId"
+                                    data-companyid="@company.CompanyId" class="jobs-button" title="Edit @company.Name Profile">
+                                    <i class="far fa-edit"></i>
+                                </a>
+
+                                <button id="updateCompanyJobListings" data-companyid="@company.CompanyId" class="jobs-button"
+                                    type="button" title="Edit @company.Name Job Listings">
+                                    Update Job Listings
+                                </button>
+                                
+                                <button data-bs-toggle="modal" data-bs-target="#deleteCompanyModal" data-companyid="@company.CompanyId" class="jobs-button delete-company-profile"
+                                    type="button" title="Delete @company.Name Profile">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="pagination d-flex flex-column flex-md-row justify-content-center gap-2 pb-2">
+        <div class="d-flex Pages justify-content-center align-items-center">
+            <button id="previous" @(Model.CurrentPage > 1 ? "" : "disabled") type="button"
+                style="background-color: rgba(102, 126, 234, 0.1);"
+                class="btn btn-outline-secondary arrows d-flex justify-content-center align-items-center px-3 py-2 mx-2">
+                <i class="fa-solid fa-angle-left" style="color: #5473ff;"></i>
+            </button>
+            <div class="d-flex justify-content-center align-items-center gap-3 mx-5">
+                <p class="m-0">Items Per Page:</p>
+                <div class="">
+                    <select id="pageSize" class="px-2 border border-1 border-black p-1"
+                        style="border-radius: 5px; background-color: rgba(102, 126, 234, 0.1);" asp-for="PageSize">
+                        <option value="3" selected="@(Model.PageSize == 3)">3</option>
+                        <option value="5" selected="@(Model.PageSize == 5)">5</option>
+                        <option value="10" selected="@(Model.PageSize == 10)">10</option>
+                        <option value="15" selected="@(Model.PageSize == 15)">15</option>
+                        <option value="@Model.TotalRecords" selected="@(Model.PageSize == Model.TotalRecords)">
+                            All</option>
+                    </select>
+                </div>
+            </div>
+            <button id="next" @(Model.CurrentPage < Model.TotalPages ? "" : "disabled") type="button"
+                style="background-color: rgba(102, 126, 234, 0.1);"
+                class="btn btn-outline-secondary arrows d-flex justify-content-center align-items-center px-3 py-2 me-1">
+                <i class="fa-solid fa-angle-right" style="color: #5473ff;"></i>
+            </button>
+        </div>
+    </div>
+    <div class="w-100 d-flex justify-content-center mt-3">
+        <p class="m-0 mx-1">Showing @Model.StartIndex-
+            @(Model.EndIndex) of @Model.TotalRecords
+        </p>
+    </div>
+}

@@ -1,0 +1,58 @@
+@using PlacementPortal.BLL.Enums
+@{
+    Layout = "_MainLayout";
+}
+
+@model PlacementPortal.DAL.ViewModels.AddRegisterUserViewModel;
+
+<div class="container-fluid d-flex justify-content-center mt-5">
+    <div class="user-registration-card p-4" style="width: 400px !important; border: 1px solid black;">
+        <h3 class="text-center mb-4">User Credentials</h3>
+        <form id="addUserForm">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input asp-for="Email" type="email" class="form-control" id="addUserEmail" name="Email"
+                    placeholder="Enter your email" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control" id="addUserPassword" name="Password"
+                    placeholder="Enter your password" />
+                <span class="text-danger" asp-validation-for="Password"></span>
+
+            </div>
+
+            <div class="d-grid">
+                <button data-bs-toggle="modal" data-bs-target="#userTypeModal"  type="button" id="toggleUserSelectModal" class="btn btn-custom"
+                    style="border: 1px solid black;">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="userTypeModal" tabindex="-1" aria-labelledby="userTypeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="userTypeModalLabel">User Role Confirmation
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex flex-column align-items-center gap-3">
+                @* <i class="fa-solid fa-triangle-exclamation modal-delete-icon p-3"></i> *@
+                <span>Please Select User Role You want to add</span>
+            </div>
+            <div class="modal-footer d-flex justify-content-center gap-2">
+                <button type="submit" data-usertype="@((int)@RoleEnum.TPO)" class="add-user btn gradient-placement" style="background-color: #667eea;">@RoleEnum.TPO.ToString()</button>
+                <button type="submit" data-usertype="@((int)@RoleEnum.Student)" class="btn add-user gradient-placement" style="background-color: #667eea;" >@RoleEnum.Student.ToString()</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<Partial name="_validationScriptsPartial" />
+@section Scripts {
+    <script src="~/js/authentication.js"></script>
+}

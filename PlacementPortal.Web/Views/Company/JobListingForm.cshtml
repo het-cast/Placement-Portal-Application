@@ -1,0 +1,70 @@
+@{
+    Layout = "_MainLayout";
+}
+
+<div class="w-75 container" style="border: 1px solid black; margin-top: 30px;">
+    @* Here the form will be rendered *@
+    <div style="margin: 20px;">
+        <div class="w-100 d-flex justify-content-around mb-4">
+            <h4>Add Job Listings</h4>
+            <div class="d-flex gap-3 flex-wrap mb-2">
+                <button id="addNewJobListing" class="btn" style="background-color: aqua;">
+                    Add Listing
+                </button>
+                <a asp-action="Company" asp-controller="Company" class="jobs-button d-flex justify-content-end text-decoration-none" type="button">
+                    Go to Home
+                </a>
+            </div>
+        </div>
+        <form id="CompanyProfileForm">
+            <div id="companyProfileFormRows">
+                <div class="row mb-3">
+                    <div class="col-12 col-lg-6 col-xl">
+                        <div class="form-floating mb-1">
+                            <input type="date" class="form-control" id="applicationStartDate"
+                                placeholder="Enrollment Number : " min="2000-01-01" required>
+                            <label for="applicationStartDate" id="appStartLabel">Application Starting Date</label>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl">
+                        <div class="form-floating mb-1">
+                            <input type="date" class="form-control" id="applicationEndDate"
+                                placeholder="Enrollment Number : " min="2000-01-01" required>
+                            <label for="enrollmentNumber">Application Ending Date</label>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control" id="minimumCGPAReq"
+                                placeholder="Enrollment Number : ">
+                            <label for="enrollmentNumber">Min. C.G.P.A</label>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-xl">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control" id="maximumBacksAllowed"
+                                placeholder="Enrollment Number : ">
+                            <label for="enrollmentNumber">Max. Backlogs</label>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-success" id="saveJobProfiles" data-submittype="Add">Save Job
+                    Profiles</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<Partial name="_validationScriptsPartial" />
+@section Scripts {
+
+    <script src="~/js/companyFunctionalities.js"></script>
+}

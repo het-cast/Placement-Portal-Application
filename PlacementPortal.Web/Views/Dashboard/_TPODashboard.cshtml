@@ -1,0 +1,43 @@
+@model PlacementPortal.DAL.ViewModels.TPODashboardDTO;
+
+<div class="row g-4">
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h5 class="card-title text-muted">Total Students</h5>
+                <h2 class="fw-bold text-primary">@Model.Students</h2>
+                <p class="text-muted mb-0">Registered on portal</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h5 class="card-title text-muted">Job Listings</h5>
+                <h2 class="fw-bold text-success">@Model.ActiveJobListings</h2>
+                <p class="text-muted mb-0">Active opportunities</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h5 class="card-title text-muted">Applications</h5>
+                <h2 class="fw-bold text-warning">@Model.TotalApplications</h2>
+                <p class="text-muted mb-0">applications submitted</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h5 class="card-title text-muted">Companies</h5>
+                <h2 class="fw-bold text-danger">@Model.CompaniesCount</h2>
+                <p class="text-muted mb-0">Recruiters onboard</p>
+            </div>
+        </div>
+    </div>
+</div>
